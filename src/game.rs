@@ -2,15 +2,18 @@ use std::{f32::consts::TAU, time::Duration};
 
 use avian2d::prelude::*;
 use bevy::{audio::Volume, prelude::*};
-use bevy_enhanced_input::prelude::*;
 use bevy_enoki::prelude::*;
 use rand::Rng;
 
-use crate::{AudioAssets, GameAssets, GameState, LoadedLevel, audio::AudioStart, level::Level};
+use crate::{
+    AudioAssets, GameAssets, GameState, LoadedLevel,
+    audio::AudioStart,
+    input::{ActionMappings, Ended, Running},
+    level::Level,
+};
 
 pub fn game_plugin(app: &mut App) {
-    app.add_input_context::<ShipController>()
-        .add_systems(OnEnter(GameState::Game), display_level)
+    app.add_systems(OnEnter(GameState::Game), display_level)
         .add_systems(
             Update,
             (tick_explosion, laser_range, has_won, follow_player, closest)
@@ -106,14 +109,12 @@ fn tick_explosion(
 }
 
 fn spawn_player(commands: &mut Commands, game_assets: &GameAssets, position: Vec2) {
-    let mut actions = Actions::<ShipController>::default();
+    let mut actions = ActionMappings::default();
 
-    actions.bind::<Rotate>().to(Bidirectional {
-        positive: KeyCode::KeyA,
-        negative: KeyCode::KeyD,
-    });
-    actions.bind::<Thrust>().to(KeyCode::KeyW);
-    actions.bind::<FireLaser>().to(KeyCode::Space);
+    actions.bind::<RotateRight>([KeyCode::KeyD]);
+    actions.bind::<RotateLeft>([KeyCode::KeyA]);
+    actions.bind::<Thrust>([KeyCode::KeyW]);
+    actions.bind::<FireLaser>([KeyCode::Space]);
 
     commands
         .spawn((
@@ -143,44 +144,42 @@ fn spawn_player(commands: &mut Commands, game_assets: &GameAssets, position: Vec
             ],
             actions,
         ))
-        .observe(rotate)
+        .observe(rotate::<RotateRight>(-1.0))
+        .observe(rotate::<RotateLeft>(1.0))
         .observe(thrust)
         .observe(thrust_stop)
         .observe(fire_laser)
         .observe(asteroid_collision);
 }
 
-#[derive(InputContext)]
-struct ShipController;
+#[derive(Debug)]
+struct RotateRight;
 
-#[derive(Debug, InputAction)]
-#[input_action(output = f32)]
-struct Rotate;
+#[derive(Debug)]
+struct RotateLeft;
 
-#[derive(Debug, InputAction)]
-#[input_action(output = bool)]
+#[derive(Debug)]
 struct Thrust;
 
-#[derive(Debug, InputAction)]
-#[input_action(output = bool)]
+#[derive(Debug)]
 struct FireLaser;
 
-fn rotate(
-    trigger: Trigger<Fired<Rotate>>,
-    mut player: Query<&mut AngularVelocity>,
-    time: Res<Time>,
-) -> Result {
-    let fixed_rate = 0.2;
-    let delta = time.delta().as_secs_f32();
-    let rate = fixed_rate / (1.0 / (60.0 * delta));
-    let mut angular_velocity = player.get_mut(trigger.target())?;
-    angular_velocity.0 += trigger.value.signum() * rate;
+fn rotate<T>(
+    dir: f32,
+) -> impl Fn(Trigger<Running<T>>, Query<&mut AngularVelocity>, Res<Time>) -> Result {
+    move |trigger: Trigger<Running<T>>, mut player: Query<&mut AngularVelocity>, time: Res<Time>| {
+        let fixed_rate = 0.2;
+        let delta = time.delta().as_secs_f32();
+        let rate = fixed_rate / (1.0 / (60.0 * delta));
+        let mut angular_velocity = player.get_mut(trigger.target())?;
+        angular_velocity.0 += dir * rate;
 
-    Ok(())
+        Ok(())
+    }
 }
 
 fn thrust(
-    trigger: Trigger<Fired<Thrust>>,
+    trigger: Trigger<Running<Thrust>>,
     mut player: Query<(&Transform, &mut LinearVelocity, &Children)>,
     mut visibility: Query<&mut Visibility>,
     mut particle_state: Query<&mut ParticleSpawnerState>,
@@ -201,7 +200,7 @@ fn thrust(
 }
 
 fn thrust_stop(
-    trigger: Trigger<Completed<Thrust>>,
+    trigger: Trigger<Ended<Thrust>>,
     player: Query<&Children>,
     mut visibility: Query<&mut Visibility>,
     mut particle_state: Query<&mut ParticleSpawnerState>,
@@ -249,7 +248,7 @@ fn asteroid_collision(
 struct Laser(Timer);
 
 fn fire_laser(
-    trigger: Trigger<Fired<FireLaser>>,
+    trigger: Trigger<Running<FireLaser>>,
     player: Query<&Transform>,
     mut commands: Commands,
     time: Res<Time>,
