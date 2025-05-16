@@ -1,12 +1,12 @@
 use avian2d::{PhysicsPlugins, prelude::Gravity};
 use bevy::prelude::*;
-use bevy_enhanced_input::EnhancedInputPlugin;
 use bevy_enoki::{EnokiPlugin, Particle2dEffect};
 use level::Level;
 
 mod audio;
 mod game;
 mod hud;
+mod input;
 mod level;
 mod splash;
 mod starfield;
@@ -25,7 +25,7 @@ fn main() {
         }))
         .init_state::<GameState>()
         .enable_state_scoped_entities::<GameState>()
-        .add_plugins((PhysicsPlugins::default(), EnhancedInputPlugin, EnokiPlugin))
+        .add_plugins((PhysicsPlugins::default(), EnokiPlugin))
         .insert_resource(Gravity::ZERO)
         .add_plugins((
             splash::splash_plugin,
@@ -36,6 +36,7 @@ fn main() {
             won::won_plugin,
             audio::audio_plugin,
             starfield::starfield_plugin,
+            input::input_plugin,
         ))
         .run();
 }
