@@ -83,8 +83,6 @@ fn trigger_actions(
 
 #[cfg(test)]
 mod tests {
-    use std::sync::atomic::AtomicBool;
-
     use bevy::prelude::*;
 
     use crate::input::{Ended, Running};
@@ -93,27 +91,36 @@ mod tests {
 
     struct Jump;
 
+    #[derive(Resource, Deref, DerefMut)]
+    struct IsJumping(bool);
+
     #[test]
     fn check_triggered() {
         let mut app = App::new();
         app.add_plugins(input_plugin);
 
+        app.insert_resource(IsJumping(false));
+
         let mut actions = ActionMappings::default();
         actions.bind::<Jump>([KeyCode::Space]);
 
-        static IS_JUMPING: AtomicBool = AtomicBool::new(false);
-
         app.world_mut()
             .spawn((actions,))
-            .observe(|_trigger: Trigger<Started<Jump>>| {
-                IS_JUMPING.store(true, std::sync::atomic::Ordering::Release);
-            })
-            .observe(|_trigger: Trigger<Running<Jump>>| {
-                IS_JUMPING.store(true, std::sync::atomic::Ordering::Release);
-            })
-            .observe(|_trigger: Trigger<Ended<Jump>>| {
-                IS_JUMPING.store(false, std::sync::atomic::Ordering::Release);
-            });
+            .observe(
+                |_trigger: Trigger<Started<Jump>>, mut is_jumping: ResMut<IsJumping>| {
+                    **is_jumping = true;
+                },
+            )
+            .observe(
+                |_trigger: Trigger<Running<Jump>>, mut is_jumping: ResMut<IsJumping>| {
+                    **is_jumping = true;
+                },
+            )
+            .observe(
+                |_trigger: Trigger<Ended<Jump>>, mut is_jumping: ResMut<IsJumping>| {
+                    **is_jumping = false;
+                },
+            );
 
         let mut input = ButtonInput::<KeyCode>::default();
         input.press(KeyCode::Space);
@@ -122,9 +129,10 @@ mod tests {
         app.update();
 
         // verify that we are pressing the button
-        assert!(IS_JUMPING.load(std::sync::atomic::Ordering::Acquire));
+        assert!(app.world().resource::<IsJumping>().0);
 
-        IS_JUMPING.store(false, std::sync::atomic::Ordering::Release);
+        // Reset the jumping, to see if it is set again while the button keeps on being pressed
+        app.world_mut().resource_mut::<IsJumping>().0 = false;
 
         {
             let mut inputs = app.world_mut().resource_mut::<ButtonInput<KeyCode>>();
@@ -134,7 +142,7 @@ mod tests {
         app.update();
 
         // verify that we are _STILL_ pressing the button
-        assert!(IS_JUMPING.load(std::sync::atomic::Ordering::Acquire));
+        assert!(app.world().resource::<IsJumping>().0);
 
         {
             let mut inputs = app.world_mut().resource_mut::<ButtonInput<KeyCode>>();
@@ -145,6 +153,6 @@ mod tests {
         app.update();
 
         // verify that we are no longer pressing the button
-        assert!(!IS_JUMPING.load(std::sync::atomic::Ordering::Acquire))
+        assert!(!app.world().resource::<IsJumping>().0);
     }
 }
