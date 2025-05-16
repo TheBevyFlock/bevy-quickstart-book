@@ -7,6 +7,14 @@ Feel free to regularly come back here to re-read it if something seems unclear.
 
 ## ECS
 
+Bevy is fundamentally a data-driven game framework.
+As such, understanding how it achieves this through implementing an ECS pattern
+is necessary to use bevy.
+
+Luckily, getting started only needs surface-level understanding.
+Further progress will then be achieved by getting more familiar with
+structuring your logic around the ECS paradigm.
+
 ### E for Entity
 
 An Entity is a unique identifier that represents a general-purpose object in the ECS. It acts as a pointer.
