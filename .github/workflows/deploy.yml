@@ -17,7 +17,6 @@ jobs:
           fetch-depth: 0
       - name: Install Rust
         run: |
-          rustup target add wasm32-unknown-unknown
           rustup toolchain install stable
           rustup default stable
       - name: Install latest mdbook
@@ -27,23 +26,11 @@ jobs:
           mkdir mdbook
           curl -sSL $url | tar -xz --directory=./mdbook
           echo `pwd`/mdbook >> $GITHUB_PATH
-      - name: Install wasm-bindgen
-        run: cargo install --force wasm-bindgen-cli
       - name: Build Book
         run: |
           mdbook build book
-      - name: Build wasm game
-        run: |
-          cargo build --target wasm32-unknown-unknown --release
-          wasm-bindgen --out-dir book/book --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm
-      - name: Optimize Wasm
-        uses: NiklasEi/wasm-opt-action@v2
-        with:
-          file: book/book/book_bg.wasm
       - name: Copy assets
         run: cp -r assets book/book/
-      - name: Copy restart-audio-context.js for wasm
-        run: cp wasm/restart-audio-context.js book/book/
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
