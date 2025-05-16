@@ -35,21 +35,21 @@ jobs:
       - name: Build wasm game
         run: |
           cargo build --target wasm32-unknown-unknown --release
-          wasm-bindgen --out-dir book/game --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm
+          wasm-bindgen --out-dir book/book --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@v2
         with:
-          file: book/book/game_bg.wasm
+          file: book/book/book_bg.wasm
       - name: Copy assets
-        run: cp -r assets book/game/
+        run: cp -r assets book/book/
       - name: Copy restart-audio-context.js for wasm
-        run: cp wasm/restart-audio-context.js book/game/
+        run: cp wasm/restart-audio-context.js book/book/
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "book/game"
+          path: "book/book"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

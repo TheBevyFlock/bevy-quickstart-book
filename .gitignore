@@ -1,5 +1,4 @@
 /target
-/bevy-workshop/book
 /tmp
 /wasm/*.wasm
 /wasm/*.ts
