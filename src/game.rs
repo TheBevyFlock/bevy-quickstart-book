@@ -1,12 +1,19 @@
 use std::{f32::consts::TAU, time::Duration};
 
-use avian2d::prelude::*;
 use bevy::{audio::Volume, prelude::*};
 use bevy_enhanced_input::prelude::*;
 use bevy_enoki::prelude::*;
 use rand::Rng;
 
-use crate::{AudioAssets, GameAssets, GameState, LoadedLevel, audio::AudioStart, level::Level};
+use crate::{
+    AudioAssets, GameAssets, GameState, LoadedLevel,
+    audio::AudioStart,
+    level::Level,
+    physics::{
+        AngularDamping, AngularVelocity, Collider, CollisionEventsEnabled, LinearVelocity,
+        OnCollisionStart,
+    },
+};
 
 pub fn game_plugin(app: &mut App) {
     app.add_input_context::<ShipController>()
@@ -68,8 +75,7 @@ fn display_level(
         commands.spawn((
             Sprite::from_image(game_assets.asteroid.clone()),
             Transform::from_xyz(x, y, 0.0),
-            RigidBody::Dynamic,
-            Collider::circle(45.0),
+            Collider::rectangle(45.0, 45.0),
             LinearVelocity(Vec2::from_angle(rng.gen_range(0.0..TAU)) * rng.gen_range(10.0..100.0)),
             AngularVelocity(rng.gen_range(-1.5..1.5)),
             Asteroid,
@@ -118,9 +124,10 @@ fn spawn_player(commands: &mut Commands, game_assets: &GameAssets, position: Vec
     commands
         .spawn((
             Sprite::from_image(game_assets.player_ship.clone()),
-            RigidBody::Dynamic,
-            Collider::circle(40.0),
+            Collider::rectangle(45.0, 45.0),
             AngularDamping(5.0),
+            LinearVelocity(Vec2::ZERO),
+            AngularVelocity(0.0),
             Player,
             Transform::from_translation(position.extend(0.0)),
             CollisionEventsEnabled,
@@ -270,8 +277,7 @@ fn fire_laser(
                     ..default()
                 },
                 transform,
-                RigidBody::Dynamic,
-                Collider::rectangle(4.0, 15.0),
+                Collider::rectangle(10.0, 10.0),
                 LinearVelocity(transform.local_y().xy() * 1000.0),
                 Laser(Timer::from_seconds(1.0, TimerMode::Once)),
                 CollisionEventsEnabled,
