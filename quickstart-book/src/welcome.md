@@ -2,7 +2,7 @@
 
 Welcome to the introductory workshop for the [Bevy Engine](https://bevyengine.org).
 
-You can access it at <https://vleue.github.io/bevy_workshop-rustweek-2025/>.
+You can access it at <https://TheBevyFlock.github.io/bevy-quickstart-book/>.
 
 ![qrcode](qrcode.png)
 
