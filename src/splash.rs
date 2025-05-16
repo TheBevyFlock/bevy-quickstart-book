@@ -28,7 +28,7 @@ fn display_title(mut commands: Commands) {
         },
         children![
             (
-                Text::new("Bevy Workshop"),
+                Text::new("Bevy Quickstart"),
                 TextFont {
                     font_size: 130.0,
                     ..default()

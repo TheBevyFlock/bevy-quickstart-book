@@ -7,8 +7,8 @@ The initial goal is to open a window using Bevy!
 Let's start a new project with Bevy
 
 ```sh
-cargo new bevy_workshop-rustweek-2025
-cd bevy_workshop-rustweek-2025
+cargo new game
+cd game
 ```
 
 We can add Bevy 0.16 with the default features enabled:
@@ -84,7 +84,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
-                title: "Bevy Workshop".into(),
+                title: "Bevy Quickstart".into(),
                 ..default()
             }),
             ..default()

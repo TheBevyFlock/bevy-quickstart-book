@@ -8,7 +8,7 @@ You can continue from your code, or get the branch with the workshop up till now
 git checkout 06-basic-game-mid
 ```
 
-Let's review what was changed: <https://github.com/vleue/bevy_workshop-rustweek-2025/compare/06-basic-game..06-basic-game-mid>
+Let's review what was changed: <https://github.com/TheBevyFlock/bevy-quickstart-book/compare/06-basic-game..06-basic-game-mid>
 
 ## Moving the Asteroids
 

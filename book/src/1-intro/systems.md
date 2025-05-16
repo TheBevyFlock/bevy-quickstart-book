@@ -10,7 +10,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
-                title: "Bevy Workshop".into(),
+                title: "Bevy Quickstart".into(),
                 ..default()
             }),
             ..default()
@@ -34,7 +34,7 @@ fn display_title(mut commands: Commands) {
         },
         children![
             (
-                Text::new("Bevy Workshop"),
+                Text::new("Bevy Quickstart"),
                 TextFont {
                     font_size: 130.0,
                     ..default()

@@ -6,7 +6,7 @@ Don't forget to checkout the branch:
 git checkout 05-intro-to-bevy
 ```
 
-Let's review what was changed: <https://github.com/vleue/bevy_workshop-rustweek-2025/compare/0-zero..05-intro-to-bevy>
+Let's review what was changed: <https://github.com/TheBevyFlock/bevy-quickstart-book/compare/0-zero..05-intro-to-bevy>
 
 ## Adding a Start Menu
 

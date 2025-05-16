@@ -1,6 +1,6 @@
 # Progress Report
 
-Let's review what was done: <https://github.com/vleue/bevy_workshop-rustweek-2025/compare/0-zero..05-intro-to-bevy>
+Let's review what was done: <https://github.com/TheBevyFlock/bevy-quickstart-book/compare/0-zero..05-intro-to-bevy>
 
 ## What You've learned
 

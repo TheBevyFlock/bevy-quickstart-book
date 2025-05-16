@@ -6,7 +6,7 @@ Don't forget to checkout the branch:
 git checkout 07-level-loading
 ```
 
-Let's review what was changed: <https://github.com/vleue/bevy_workshop-rustweek-2025/compare/06-basic-game..07-level-loading>
+Let's review what was changed: <https://github.com/TheBevyFlock/bevy-quickstart-book/compare/06-basic-game..07-level-loading>
 
 ## Spawn the correct number of asteroids
 

@@ -6,7 +6,7 @@ Don't forget to checkout the branch:
 git checkout 06-basic-game
 ```
 
-Let's review what was changed: <https://github.com/vleue/bevy_workshop-rustweek-2025/compare/05-intro-to-bevy..06-basic-game>
+Let's review what was changed: <https://github.com/TheBevyFlock/bevy-quickstart-book/compare/05-intro-to-bevy..06-basic-game>
 
 ## Displaying an Asteroid
 
