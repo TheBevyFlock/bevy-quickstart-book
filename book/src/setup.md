@@ -56,7 +56,7 @@ cd /workspace
 # serve the wasm in the background
 basic-http-server wasm 2> /dev/null &
 # build for wasm
-cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm
+cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-book.wasm
 ```
 
 #### Or use a prebuilt docker image
@@ -67,13 +67,13 @@ It will be a bigger initial download but the first build is already done
 docker run -it -v `pwd`:/workspace -p 4000:4000 ghcr.io/TheBevyFlock/bevy-quickstart-book /bin/bash
 
 # Copy the prebuilt target folder
-cp -r bevy-quickstart-book/target /workspace/target
+cp -r bevy-book/target /workspace/target
 
 cd /workspace
 # serve the wasm in the background
 basic-http-server wasm 2> /dev/null &
 # build for wasm
-cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm
+cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-book.wasm
 ```
 
 ### Option 3: Use GitHub Codespace

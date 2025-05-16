@@ -19,10 +19,10 @@
   },
   "postAttachCommand": {
     "server": "basic-http-server wasm",
-    "watcher": "cargo watch --ignore wasm --shell 'cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name quickstart-book --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm'"
+    "watcher": "cargo watch --ignore wasm --shell 'cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm'"
   },
   "onCreateCommand": "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash && cargo binstall --no-confirm wasm-bindgen-cli cargo-watch basic-http-server",
-  "updateContentCommand": "cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name quickstart-book --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm",
+  "updateContentCommand": "cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm",
   "customizations": {
     "vscode": {
       "extensions": [
