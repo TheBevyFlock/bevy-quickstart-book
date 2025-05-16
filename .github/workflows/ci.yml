@@ -24,7 +24,7 @@ jobs:
       - name: Build Dependencies
         run: cargo build
       - name: Test Book
-        run: CARGO_MANIFEST_DIR=`pwd` mdbook test bevy-workshop -L target/debug/deps
+        run: CARGO_MANIFEST_DIR=`pwd` mdbook test quickstart-book -L target/debug/deps
 
   clippy:
     name: Clippy

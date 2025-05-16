@@ -1,5 +1,5 @@
 {
-  "name": "Bevy Workshop",
+  "name": "Bevy Quickstart Book",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/rust:1": {},
@@ -8,7 +8,9 @@
   "hostRequirements": {
     "cpus": 4
   },
-  "forwardPorts": [4000],
+  "forwardPorts": [
+    4000
+  ],
   "portsAttributes": {
     "4000": {
       "label": "wasm preview",
@@ -17,13 +19,15 @@
   },
   "postAttachCommand": {
     "server": "basic-http-server wasm",
-    "watcher": "cargo watch --ignore wasm --shell 'cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy_workshop.wasm'"
+    "watcher": "cargo watch --ignore wasm --shell 'cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name quickstart-book --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm'"
   },
   "onCreateCommand": "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash && cargo binstall --no-confirm wasm-bindgen-cli cargo-watch basic-http-server",
-  "updateContentCommand": "cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy_workshop-rustweek-2025.wasm",
+  "updateContentCommand": "cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name quickstart-book --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm",
   "customizations": {
     "vscode": {
-      "extensions": ["rust-lang.rust-analyzer"]
+      "extensions": [
+        "rust-lang.rust-analyzer"
+      ]
     }
   }
 }

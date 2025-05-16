@@ -31,25 +31,25 @@ jobs:
         run: cargo install --force wasm-bindgen-cli
       - name: Build Book
         run: |
-          mdbook build bevy-workshop
+          mdbook build quickstart-book
       - name: Build wasm game
         run: |
           cargo build --target wasm32-unknown-unknown --release
-          wasm-bindgen --out-dir bevy-workshop/book --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy_workshop-rustweek-2025.wasm
+          wasm-bindgen --out-dir quickstart-book/book --out-name quickstart-book --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@v2
         with:
-          file: bevy-workshop/book/workshop-rustweek-2025_bg.wasm
+          file: quickstart-book/book/bevy-quickstart-book_bg.wasm
       - name: Copy assets
-        run: cp -r assets bevy-workshop/book/
+        run: cp -r assets quickstart-book/book/
       - name: Copy restart-audio-context.js for wasm
-        run: cp wasm/restart-audio-context.js bevy-workshop/book/
+        run: cp wasm/restart-audio-context.js quickstart-book/book/
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "bevy-workshop/book"
+          path: "quickstart-book/book"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
