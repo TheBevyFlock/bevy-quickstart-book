@@ -8,7 +8,7 @@ git clone https://github.com/TheBevyFlock/bevy-quickstart-book
 
 ## Environment setup
 
-Option 1 is recommended if your local machine supports it. This workshop won't be GPU heavy so most hardware configurations should support running it.
+Option 1 is recommended if your local machine supports it. This game won't be GPU heavy so most hardware configurations should support running it.
 
 ### Option 1: Local Setup
 
@@ -40,7 +40,7 @@ beginners-questions channel. The community can probably help you out!
 
 ### Option 2: Docker Setup
 
-This option can be interesting if you can't install dependencies on your machine, or the setup fails for some obscure reason. Instead of running natively, the workshop will run in your browser using wasm and WebGL2, delegating most OS/hardware integration to the browser.
+This option can be interesting if you can't install dependencies on your machine, or the setup fails for some obscure reason. Instead of running natively, the game will run in your browser using wasm and WebGL2, delegating most OS/hardware integration to the browser.
 
 #### Run a docker image from scratch
 
@@ -56,7 +56,7 @@ cd /workspace
 # serve the wasm in the background
 basic-http-server wasm 2> /dev/null &
 # build for wasm
-cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-book.wasm
+cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm
 ```
 
 #### Or use a prebuilt docker image
@@ -73,7 +73,7 @@ cd /workspace
 # serve the wasm in the background
 basic-http-server wasm 2> /dev/null &
 # build for wasm
-cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-book.wasm
+cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name game --target web target/wasm32-unknown-unknown/release/game.wasm
 ```
 
 ### Option 3: Use GitHub Codespace

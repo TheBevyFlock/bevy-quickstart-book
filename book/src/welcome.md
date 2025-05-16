@@ -2,7 +2,7 @@
 
 Welcome to the introductory workshop for the [Bevy Engine](https://bevyengine.org).
 
-You can access it at <https://TheBevyFlock.github.io/bevy-book/>.
+You can access it at <https://TheBevyFlock.github.io/bevy-quickstart-book/>.
 
 ![qrcode](qrcode.png)
 

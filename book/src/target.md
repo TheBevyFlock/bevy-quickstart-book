@@ -1,6 +1,6 @@
 <script type="module">
     import './restart-audio-context.js'
-    import init from './workshop.js'
+    import init from './game.js'
     setTimeout(() => {
         init()
     }, 1000);
