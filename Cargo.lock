@@ -369,6 +369,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy-quickstart-book"
+version = "0.1.0"
+dependencies = [
+ "avian2d",
+ "bevy",
+ "bevy_enhanced_input",
+ "bevy_enoki",
+ "rand",
+ "thiserror 2.0.12",
+]
+
+[[package]]
 name = "bevy_a11y"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1316,18 +1328,6 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "winit",
-]
-
-[[package]]
-name = "bevy_workshop-rustweek-2025"
-version = "0.1.0"
-dependencies = [
- "avian2d",
- "bevy",
- "bevy_enhanced_input",
- "bevy_enoki",
- "rand",
- "thiserror 2.0.12",
 ]
 
 [[package]]

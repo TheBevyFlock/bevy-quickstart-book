@@ -7,8 +7,8 @@ The initial goal is to open a window using Bevy!
 Let's start a new project with Bevy
 
 ```sh
-cargo new bevy_workshop-rustweek-2025
-cd bevy_workshop-rustweek-2025
+cargo new bevy-quickstart-book
+cd bevy-quickstart-book
 ```
 
 We can add Bevy 0.16 with the default features enabled:

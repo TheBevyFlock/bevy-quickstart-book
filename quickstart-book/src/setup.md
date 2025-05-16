@@ -3,7 +3,7 @@
 ## Clone the repository
 
 ```sh
-git clone https://github.com/vleue/bevy_workshop-rustweek-2025
+git clone https://github.com/TheBevyFlock/bevy-quickstart-book
 ```
 
 ## Environment setup
@@ -56,7 +56,7 @@ cd /workspace
 # serve the wasm in the background
 basic-http-server wasm 2> /dev/null &
 # build for wasm
-cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy_workshop-rustweek-2025.wasm
+cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm
 ```
 
 #### Or use a prebuilt docker image
@@ -64,20 +64,20 @@ cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir 
 It will be a bigger initial download but the first build is already done
 
 ```sh
-docker run -it -v `pwd`:/workspace -p 4000:4000 ghcr.io/vleue/bevy_workshop-rustweek-2025 /bin/bash
+docker run -it -v `pwd`:/workspace -p 4000:4000 ghcr.io/TheBevyFlock/bevy-quickstart-book /bin/bash
 
 # Copy the prebuilt target folder
-cp -r bevy_workshop-rustweek-2025/target /workspace/target
+cp -r bevy-quickstart-book/target /workspace/target
 
 cd /workspace
 # serve the wasm in the background
 basic-http-server wasm 2> /dev/null &
 # build for wasm
-cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy_workshop-rustweek-2025.wasm
+cargo build --release --target wasm32-unknown-unknown && wasm-bindgen --out-dir wasm --out-name workshop --target web target/wasm32-unknown-unknown/release/bevy-quickstart-book.wasm
 ```
 
 ### Option 3: Use GitHub Codespace
 
-Go to <https://github.com/codespaces/new/vleue/bevy_workshop-rustweek-2025>, it will use a prebuilt image with everything needed to work in wasm. Increase the number of core as much as you're comfortable with. GitHub free tier of codespace is 120 core-hours per month, so with an 8-core machine you'll have 15 hours.
+Go to <https://github.com/codespaces/new/TheBevyFlock/bevy-quickstart-book>, it will use a prebuilt image with everything needed to work in wasm. Increase the number of core as much as you're comfortable with. GitHub free tier of codespace is 120 core-hours per month, so with an 8-core machine you'll have 15 hours.
 
 This option uses more bandwidth as you'll download the wasm file from the internet on every rebuild.

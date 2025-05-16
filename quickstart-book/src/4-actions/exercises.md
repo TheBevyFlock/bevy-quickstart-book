@@ -6,7 +6,7 @@ Don't forget to checkout the branch:
 git checkout 08-player-actions
 ```
 
-Let's review what was changed: <https://github.com/vleue/bevy_workshop-rustweek-2025/compare/07-level-loading..08-player-actions>
+Let's review what was changed: <https://github.com/TheBevyFlock/bevy-quickstart-book/compare/07-level-loading..08-player-actions>
 
 ## Idiomatic Ship Collision Detection
 

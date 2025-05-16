@@ -1,0 +1,15 @@
+[book]
+authors = ["François"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Bevy Quickstart Book"
+
+[rust]
+edition = "2024"
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/TheBevyFlock/bevy-quickstart-book"
+edit-url-template = "https://github.com/TheBevyFlock/bevy-quickstart-book/edit/main/quickstart-book/{path}"
