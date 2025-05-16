@@ -15,24 +15,49 @@ Luckily, getting started only needs surface-level understanding.
 Further progress will then be achieved by getting more familiar with
 structuring your logic around the ECS paradigm.
 
-### E for Entity
-
-An Entity is a unique identifier that represents a general-purpose object in the ECS. It acts as a pointer.
+*Note: The initials are not in order, to make it easier to understand/follow.*
 
 ### C for Component
 
-A Component is a data structure that holds information or attributes of an entity. Components are used to store the state and data of entities.
+*A Component is a piece of data.*
+
+Most data is fairly simple: integers, strings. Representing Health, positions,
+cooldowns etc.
+But you are not limited to those. You can use most Rust structures and use them
+as components.
+
+This seems fairly restrictive at first, but it will make sense later on when
+using Entities and Systems to compose more complex behavior.
+
+### E for Entity
+
+*An Entity is a set of Components.*
+
+The **Entity** is the container through which the an ECS is organized.
+It allows to group components, and what you will work with in systems.
+
+As an example, a `Player` entity might contain the following **Components**:
+
+- `Position`
+- `Health`
+- `KeyboardController`
+
+As you can see, it might have what one considers 'simple data' but also
+components that traditionally would be considered 'logic'.
+
+If this is not clear how bevy achieves this, read on and it will make sense to
+you throughout the tutorial chapters.
 
 ### S for System
 
-A System is a function that operates on entities with specific components. Systems define the behavior and logic of the ECS by processing entities' components.
+*A system is a function that uses entities and their components.*
 
-### Another way to think about ECS
+The **System** is what glues different Components together.
+For example, you might have a system for:
 
-It's a database!
-
-Entities are the index, components are the columns and systems are procedural queries.
-
+- updating the position of an entity based on its velocity. Both `Position` and
+  `Velocity` would be components.
+- updating the `Health` component based on `FireResistance` and a `OnFire` component.
 
 ## Bevy Concepts
 
