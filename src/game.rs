@@ -363,7 +363,6 @@ fn closest(
     gizmos.arrow_2d(
         player_position + direction * 45.0,
         player_position + direction * 70.0,
-        // nearest_position,
         Color::hsl(0.0, 1.0, 0.5),
     );
 }
