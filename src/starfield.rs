@@ -31,7 +31,7 @@ impl<'a> From<&'a StarfieldMaterial> for StarfieldMaterial {
 }
 
 impl Material2d for StarfieldMaterial {
-    fn fragment_shader() -> bevy::render::render_resource::ShaderRef {
+    fn fragment_shader() -> ShaderRef {
         ShaderRef::Path("starfield.wgsl".into())
     }
 }
