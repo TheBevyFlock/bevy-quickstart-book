@@ -78,21 +78,23 @@ fn find_collisions(
         Option<&CollisionEventsEnabled>,
     )>,
 ) {
-    for (entity_a, transform_a, collider_a, events_enabled_a) in colliders.iter() {
+    for [
+        (entity_a, transform_a, collider_a, events_enabled_a),
+        (entity_b, transform_b, collider_b, events_enabled_b),
+    ] in colliders.iter_combinations()
+    {
         let collider_a = collider_a
             .0
             .translated_by(transform_a.translation().truncate());
-        for (entity_b, transform_b, collider_b, events_enabled_b) in colliders.iter() {
-            let collider_b = collider_b
-                .0
-                .translated_by(transform_b.translation().truncate());
-            if entity_a != entity_b && collider_a.intersects(&collider_b) {
-                if events_enabled_a.is_some() {
-                    commands.trigger_targets(OnCollisionStart { collider: entity_b }, entity_a);
-                }
-                if events_enabled_b.is_some() {
-                    commands.trigger_targets(OnCollisionStart { collider: entity_a }, entity_b);
-                }
+        let collider_b = collider_b
+            .0
+            .translated_by(transform_b.translation().truncate());
+        if entity_a != entity_b && collider_a.intersects(&collider_b) {
+            if events_enabled_a.is_some() {
+                commands.trigger_targets(OnCollisionStart { collider: entity_b }, entity_a);
+            }
+            if events_enabled_b.is_some() {
+                commands.trigger_targets(OnCollisionStart { collider: entity_a }, entity_b);
             }
         }
     }
