@@ -19,7 +19,7 @@ fn load_assets(
     asset_server: Res<AssetServer>,
 ) {
     commands.insert_resource(GameAssets {
-        player_ship: asset_server.load("playerShip1_green.png"),
+        player_ship: asset_server.load("textures/playerShip1_green.png"),
     });
 }
 ```

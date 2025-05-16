@@ -63,23 +63,23 @@ fn switch_to_menu(
 
 fn load_assets(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.insert_resource(GameAssets {
-        player_ship: asset_server.load("playerShip1_green.png"),
-        asteroid: asset_server.load("meteorBrown_big1.png"),
-        jets: asset_server.load("fire07.png"),
-        explosion: asset_server.load("explosion00.png"),
-        laser: asset_server.load("laserRed07.png"),
-        jet_particles: asset_server.load("jet.particle.ron"),
+        player_ship: asset_server.load("textures/playerShip1_green.png"),
+        asteroid: asset_server.load("textures/meteorBrown_big1.png"),
+        jets: asset_server.load("textures/fire07.png"),
+        explosion: asset_server.load("textures/explosion00.png"),
+        laser: asset_server.load("textures/laserRed07.png"),
+        jet_particles: asset_server.load("particles/jet.particle.ron"),
     });
     commands.insert_resource(LoadedLevel {
-        level: asset_server.load("level.bw"),
+        level: asset_server.load("levels/level.bw"),
     });
     commands.insert_resource(AudioAssets {
-        laser: asset_server.load("laser.wav"),
-        ship_explosion: asset_server.load("ship_explosion.wav"),
-        asteroid_explosion: asset_server.load("asteroid_explosion.wav"),
-        start: asset_server.load("start.wav"),
-        win: asset_server.load("win.wav"),
-        lose: asset_server.load("lose.wav"),
-        game_loop: asset_server.load("Mission Plausible.wav"),
+        laser: asset_server.load("audio/laser.wav"),
+        ship_explosion: asset_server.load("audio/ship_explosion.wav"),
+        asteroid_explosion: asset_server.load("audio/asteroid_explosion.wav"),
+        start: asset_server.load("audio/start.wav"),
+        win: asset_server.load("audio/win.wav"),
+        lose: asset_server.load("audio/lose.wav"),
+        game_loop: asset_server.load("audio/Mission Plausible.wav"),
     });
 }

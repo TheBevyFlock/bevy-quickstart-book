@@ -18,7 +18,7 @@ fn load_assets(
     // ...
 ) {
     commands.insert_resource(AudioAssets {
-        laser: asset_server.load("laser.wav"),
+        laser: asset_server.load("audio/laser.wav"),
     });
     // ...
 }
