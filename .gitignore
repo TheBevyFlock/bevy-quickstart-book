@@ -4,3 +4,4 @@
 /wasm/*.wasm
 /wasm/*.ts
 /wasm/game.js
+/book/book
