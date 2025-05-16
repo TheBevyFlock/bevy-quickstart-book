@@ -18,13 +18,25 @@ Option 1 is recommended if your local machine supports it. This workshop won't b
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-- Install linux dependencies: [https://github.com/bevyengine/bevy/blob/latest/docs/linux_dependencies.md](https://github.com/bevyengine/bevy/blob/latest/docs/linux_dependencies.md)
+#### Linux
 
-- First build of the workshop. The initial build can take some time.
+If you are using Linux, you can read up about how to install dependencies here:
+[https://github.com/bevyengine/bevy/blob/latest/docs/linux_dependencies.md](https://github.com/bevyengine/bevy/blob/latest/docs/linux_dependencies.md)
+
+#### Windows
+
+If you are instead using Windows, you should be good to go.
+
+---
+
+To test out if it's all working, try building the sample project:
 
 ```sh
 cargo build
 ```
+
+If you are running into any issues, please check out the Discord and ask in the
+beginners-questions channel. The community can probably help you out!
 
 ### Option 2: Docker Setup
 
