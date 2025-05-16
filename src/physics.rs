@@ -89,7 +89,7 @@ fn find_collisions(
         let collider_b = collider_b
             .0
             .translated_by(transform_b.translation().truncate());
-        if entity_a != entity_b && collider_a.intersects(&collider_b) {
+        if collider_a.intersects(&collider_b) {
             if events_enabled_a.is_some() {
                 commands.trigger_targets(OnCollisionStart { collider: entity_b }, entity_a);
             }
