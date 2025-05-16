@@ -143,7 +143,7 @@ fn load_assets(
     // ...
 ) {
     commands.insert_resource(LoadedLevel {
-        level: asset_server.load("level.bw"),
+        level: asset_server.load("levels/level.bw"),
     });
     // ...
 }
