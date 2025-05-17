@@ -19,7 +19,7 @@
   - [✍️ Exercises](./2-basics/exercises1.md)
   - [Basic Physics](./2-basics/physics.md)
   - [✍️ Exercises](./2-basics/exercises2.md)
-  - [🎁 Actual Physics](./2-basics/actual-physics.md)
+  - [🎁 Physics](./2-basics/physics-continued.md)
   - [Progress Report](./2-basics/progress.md)
 - [Level Loading](./3-level/index.md)
   - [Custom Asset Format](./3-level/loading.md)

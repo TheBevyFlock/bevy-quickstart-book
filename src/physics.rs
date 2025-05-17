@@ -1,7 +1,4 @@
-use bevy::{
-    math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume},
-    prelude::*,
-};
+use bevy::prelude::*;
 
 #[derive(Component)]
 pub struct LinearVelocity(pub Vec2);
@@ -13,13 +10,7 @@ pub struct AngularVelocity(pub f32);
 pub struct AngularDamping(pub f32);
 
 #[derive(Component)]
-pub struct Collider(pub Aabb2d);
-
-impl Collider {
-    pub fn rectangle(width: f32, height: f32) -> Self {
-        Self(Aabb2d::new(Vec2::ZERO, Vec2::new(width, height)))
-    }
-}
+pub struct Collider(pub f32);
 
 #[derive(Component)]
 pub struct CollisionEventsEnabled;
@@ -83,13 +74,10 @@ fn find_collisions(
         (entity_b, transform_b, collider_b, events_enabled_b),
     ] in colliders.iter_combinations()
     {
-        let collider_a = collider_a
-            .0
-            .translated_by(transform_a.translation().truncate());
-        let collider_b = collider_b
-            .0
-            .translated_by(transform_b.translation().truncate());
-        if collider_a.intersects(&collider_b) {
+        let distance = transform_a
+            .translation()
+            .distance(transform_b.translation());
+        if distance < (collider_a.0 + collider_b.0) {
             if events_enabled_a.is_some() {
                 commands.trigger_targets(OnCollisionStart { collider: entity_b }, entity_a);
             }
@@ -103,10 +91,9 @@ fn find_collisions(
 #[allow(dead_code)]
 fn debug_draw_colliders(mut gizmos: Gizmos, query: Query<(&GlobalTransform, &Collider)>) {
     for (global_transform, collider) in query.iter() {
-        let size = collider.0.max - collider.0.min;
-        gizmos.rect_2d(
+        gizmos.circle_2d(
             global_transform.translation().truncate(),
-            size,
+            collider.0,
             bevy::color::palettes::basic::RED,
         );
     }

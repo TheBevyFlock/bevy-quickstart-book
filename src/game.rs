@@ -75,7 +75,7 @@ fn display_level(
         commands.spawn((
             Sprite::from_image(game_assets.asteroid.clone()),
             Transform::from_xyz(x, y, 0.0),
-            Collider::rectangle(45.0, 45.0),
+            Collider(45.0),
             LinearVelocity(Vec2::from_angle(rng.gen_range(0.0..TAU)) * rng.gen_range(10.0..100.0)),
             AngularVelocity(rng.gen_range(-1.5..1.5)),
             Asteroid,
@@ -124,7 +124,7 @@ fn spawn_player(commands: &mut Commands, game_assets: &GameAssets, position: Vec
     commands
         .spawn((
             Sprite::from_image(game_assets.player_ship.clone()),
-            Collider::rectangle(45.0, 45.0),
+            Collider(45.0),
             AngularDamping(5.0),
             LinearVelocity(Vec2::ZERO),
             AngularVelocity(0.0),
@@ -277,7 +277,7 @@ fn fire_laser(
                     ..default()
                 },
                 transform,
-                Collider::rectangle(10.0, 10.0),
+                Collider(10.0),
                 LinearVelocity(transform.local_y().xy() * 1000.0),
                 Laser(Timer::from_seconds(1.0, TimerMode::Once)),
                 CollisionEventsEnabled,

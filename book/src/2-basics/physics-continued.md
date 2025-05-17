@@ -1,35 +1,5 @@
-# Actual Physics
+# Physics continued
 
-Bevy has plenty of [third-party plugins](https://bevyengine.org/assets/).
-
-Let's pick a physics engine that's easy to use with Bevy. There are two options:
-
-<p align="center">
-    <br />
-    <br />
-    <a href="https://github.com/Jondolf/avian">
-        <img src="https://raw.githubusercontent.com/Jondolf/avian/avian/assets/branding/logo.svg" />
-    </a>
-    <br />
-    <br />
-    <br />
-    <a href="https://rapier.rs/">
-        <img src="https://rapier.rs/img/rapier_logo_color_textpath.svg" />
-    </a>
-    <br />
-    <br />
-    <br />
-</p>
-
-We'll use Avian in this workshop, but you could use Rapier and get similar results.
-
-First we'll add a dependency on `avian2d` to our project:
-
-```toml
-cargo add avian2d
-```
-
-To finish the setup, we need to add the `PhysicsPlugins::default()` to our app. And as we're in space, let's remove gravity! This can be done by adding the resource `Gravity::ZERO`.
 
 ## Asteroid Movements
 
@@ -37,7 +7,6 @@ Asteroids are the easiest to do! First remove the `inertia` system, and the fiel
 
 When spawning an asteroid, we'll need to add the following components:
 
-- `RigidBody`
 - `Collider`
 - `LinearVelocity`
 - `AngularVelocity`
@@ -46,11 +15,9 @@ And that's it! As a bonus, now asteroids will bounce off each other.
 
 ```rust
 # extern crate bevy;
-# extern crate avian2d;
 # extern crate rand;
 # use std::f32::consts::TAU;
 # use bevy::prelude::*;
-# use avian2d::prelude::*;
 # use crate::rand::Rng;
 # #[derive(Component)]
 # struct Asteroid;
@@ -63,6 +30,12 @@ And that's it! As a bonus, now asteroids will bounce off each other.
 #     #[default]
 #     Game,
 # }
+# #[derive(Component)]
+# pub struct LinearVelocity(pub Vec2);
+# #[derive(Component)]
+# pub struct AngularVelocity(pub f32);
+# #[derive(Component)]
+# pub struct Collider(pub f32);
 fn display_level(mut commands: Commands, game_assets: Res<GameAssets>) {
     // Same player spawning
 
@@ -71,8 +44,7 @@ fn display_level(mut commands: Commands, game_assets: Res<GameAssets>) {
         commands.spawn((
             Sprite::from_image(game_assets.asteroid.clone()),
             Transform::from_xyz(300.0 * x, 200.0 * y, 0.0),
-            RigidBody::Dynamic,
-            Collider::circle(50.0),
+            Collider(50.0),
             LinearVelocity(Vec2::from_angle(rng.gen_range(0.0..TAU)) * rng.gen_range(10.0..100.0)),
             AngularVelocity(rng.gen_range(-1.5..1.5)),
             Asteroid,
@@ -88,16 +60,13 @@ Ship movements are a bit more complicated. As it doesn't have fixed linear and a
 
 First, we'll add some components when spawning the ship entity:
 
-- `RigidBody`
 - `Collider`
 
 Another component we'll add is `AngularDamping`. As the ship is in space, once it's rotating it shouldn't slow down by itself, but that isn't very pleasant to control. Adding damping means that it will stop rotating by itself.
 
 ```rust
 # extern crate bevy;
-# extern crate avian2d;
 # use bevy::prelude::*;
-# use avian2d::prelude::*;
 # #[derive(Component)]
 # struct Player;
 # #[derive(Resource)]
@@ -110,11 +79,20 @@ Another component we'll add is `AngularDamping`. As the ship is in space, once i
 #     #[default]
 #     Game,
 # }
+# #[derive(Component)]
+# pub struct LinearVelocity(pub Vec2);
+# #[derive(Component)]
+# pub struct AngularVelocity(pub f32);
+# #[derive(Component)]
+# pub struct AngularDamping(pub f32);
+# #[derive(Component)]
+# pub struct Collider(pub f32);
 fn display_level(mut commands: Commands, game_assets: Res<GameAssets>) {
     commands.spawn((
         Sprite::from_image(game_assets.player_ship.clone()),
-        RigidBody::Dynamic,
-        Collider::circle(40.0),
+        Collider(40.0),
+        LinearVelocity(Vec3::ZERO),
+        AngularVelocity(0.0),
         AngularDamping(5.0),
         Player,
         StateScoped(GameState::Game),
@@ -133,11 +111,13 @@ And when reacting to user input, we'll modify the `AngularVelocity` and `LinearV
 
 ```rust
 # extern crate bevy;
-# extern crate avian2d;
 # use bevy::prelude::*;
-# use avian2d::prelude::*;
 # #[derive(Component)]
 # struct Player;
+# #[derive(Component)]
+# pub struct LinearVelocity(pub Vec2);
+# #[derive(Component)]
+# pub struct AngularVelocity(pub f32);
 fn control_player(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mut player: Query<
@@ -180,21 +160,11 @@ With that done, we can now remove the `move_player` system!
 
 ## Collisions
 
-Last task to move to the physic engine is collision detection
+TODO
 
-Avian exposes `Collisions` system parameter that we can use to easily query if something is colliding with an entity.
-
-<div class="warning">
-
-This is not the idiomatic way to do it. Avian send trigger events that can be caught with observers, which we'll explore later.
-
-</div>
-
-```rust
+```
 # extern crate bevy;
-# extern crate avian2d;
 # use bevy::prelude::*;
-# use avian2d::prelude::*;
 # #[derive(Component)]
 # struct Player;
 # #[derive(Component)]

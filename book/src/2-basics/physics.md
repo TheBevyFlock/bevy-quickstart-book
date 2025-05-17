@@ -1,6 +1,29 @@
-# Basic Physics
+# Physics
 
-Let's add more asteroids, and handle collisions!
+## Third party crates
+
+In the following sections we'll add basic movement and collision detection.
+
+Game physics is a deep subject, and for more complicated games you will want to use an existing solution instead of reinventing it yourself. Bevy currently doesn't have a built-in physics solution, but there are community crates you can use:
+
+<p align="center">
+    <br />
+    <br />
+    <a href="https://github.com/Jondolf/avian">
+        <img src="https://raw.githubusercontent.com/Jondolf/avian/avian/assets/branding/logo.svg" />
+    </a>
+    <br />
+    <br />
+    <br />
+    <a href="https://rapier.rs/">
+        <img src="https://rapier.rs/img/rapier_logo_color_textpath.svg" />
+    </a>
+    <br />
+    <br />
+    <br />
+</p>
+
+With that out of the way, let's add more asteroids and handle collisions!
 
 ## More Asteroids
 
@@ -39,7 +62,7 @@ fn display_level(mut commands: Commands, game_assets: Res<GameAssets>) {
 
 ## Collisions
 
-One of the easiest way to test collisions is to consider everything is round, and then check that the distance between two objects is less than the sum of their radii. This is a close enough approximation that works well in our case. Another basic shape that is often used for collision detection is `AABB` (for Axis-Aligned Bounding Box, so a rectangle).
+One of the easiest way to test collisions is to assume that everything is round, and then check that the distance between two objects is less than the sum of their radii. This is a close enough approximation that works well in our case. Another basic shape that is often used for collision detection is `AABB` (for Axis-Aligned Bounding Box, so a rectangle).
 
 Let's get the position of the player, and check the distance with every asteroid.
 
