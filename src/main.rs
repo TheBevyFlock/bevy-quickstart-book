@@ -1,4 +1,3 @@
-use avian2d::{PhysicsPlugins, prelude::Gravity};
 use bevy::prelude::*;
 use bevy_enhanced_input::EnhancedInputPlugin;
 use bevy_enoki::{EnokiPlugin, Particle2dEffect};
@@ -8,6 +7,7 @@ mod audio;
 mod game;
 mod hud;
 mod level;
+mod physics;
 mod splash;
 mod starfield;
 mod start_menu;
@@ -25,9 +25,9 @@ fn main() {
         }))
         .init_state::<GameState>()
         .enable_state_scoped_entities::<GameState>()
-        .add_plugins((PhysicsPlugins::default(), EnhancedInputPlugin, EnokiPlugin))
-        .insert_resource(Gravity::ZERO)
+        .add_plugins((EnhancedInputPlugin, EnokiPlugin))
         .add_plugins((
+            physics::physics_plugin,
             splash::splash_plugin,
             start_menu::menu_plugin,
             game::game_plugin,
