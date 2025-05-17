@@ -22,10 +22,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 If you are using Linux, you can read up about how to install dependencies here:
 [https://github.com/bevyengine/bevy/blob/latest/docs/linux_dependencies.md](https://github.com/bevyengine/bevy/blob/latest/docs/linux_dependencies.md)
 
-### Windows
+### Windows & MacOS
 
-If you are instead using Windows, you should be good to go.
-
+If you are instead using Windows or MacOS, you should be good to go.
 
 ## Testing if it all works
 
